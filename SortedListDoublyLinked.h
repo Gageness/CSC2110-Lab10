@@ -18,9 +18,6 @@ class SortedListDoublyLinked
       DoubleNode<T>* locateNodeRemove(String* sk);
       DoubleNode<T>* locateNodeAdd(T* item);
 
-      DoubleNode<T>* addDN(T* item);
-      T* remove(DoubleNode<T>* curr);
-
       DoubleNode<T>* findHead();
       DoubleNode<T>* findTail();
 
@@ -38,6 +35,9 @@ class SortedListDoublyLinked
       T* get(String* sk);
       void add(T* item);
       void remove(String* sk);
+	  
+	  DoubleNode<T>* addDN(T* item);
+      T* remove(DoubleNode<T>* curr);
 
       ListDoublyLinkedIterator<T>* iterator();
 
@@ -76,28 +76,31 @@ T* SortedListDoublyLinked<T>::remove(DoubleNode<T>* curr)
    //remember to set loc
    
 
-	T* item;
+	T* item = curr -> getItem();
 
 	DoubleNode<T>* prev = curr -> getPrev();
 	DoubleNode<T>* after = curr -> getNext();
 	
-	if(prev == NULL) {
-		after -> setPrev(NULL);
-		item = curr -> getItem();
+	if(sze == 1) {
+	
+		loc = NULL;
+		sze--;
+		delete curr;
+		return item;
 	}
-	else if (after == NULL) {
-		prev -> setNext(after);
-		item = curr -> getItem();
-	} 
-	else {
 	
-		prev -> setNext(after);
+	if(prev == NULL) {
+	
+		loc = after;
 		after -> setPrev(prev);
-		item = curr -> getItem();
+	}
 	
+	if (after == NULL) {
+	
+		loc = prev;
+		prev -> setNext(after);
 	}
 
-	loc = curr;
 	sze--;
 	delete curr;
 	return item;

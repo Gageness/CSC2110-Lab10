@@ -45,12 +45,12 @@ int main()
    addCDs(cds, h);
 
    ListDoublyLinkedIterator<CD>* iter = h->iterator();
-   while(iter->hasNext())
+    while(iter->hasNext())
    {
       CD* cd = iter->next();
       cd->displayCD();
    }
-   delete iter;
+   delete iter; 
 
    while(!(h->isEmpty()))
    {
